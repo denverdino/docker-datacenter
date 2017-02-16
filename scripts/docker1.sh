@@ -14,7 +14,7 @@ docker run --rm -t --name ucp \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v /vagrant/docker_subscription.lic:/docker_subscription.lic \
 -v /etc/hosts:/etc/hosts \
-docker/ucp install \
+docker/ucp:2.1.0 install \
 --debug \
 --host-address ${DOCKER1_IP} \
 --controller-port ${UCP_HTTPS_PORT} \
