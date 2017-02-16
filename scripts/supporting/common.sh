@@ -29,10 +29,10 @@ export DTR_URL=${DTR_HOST}:${DTR_HTTPS_PORT}
 ##############################################################
 
 # extra bits
-sudo yum install git wget jq -y
+sudo yum install git wget -y
 
-#wget -q https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
-#chmod +x jq-linux64
+wget -q http://acs-upload.oss-cn-qingdao.aliyuncs.com/jq-linux64
+chmod +x jq-linux64
 
 # install docker engine
 source ${SCRIPT_PATH}/scripts/supporting/docker-engine.sh
@@ -42,10 +42,10 @@ source ${SCRIPT_PATH}/scripts/supporting/docker-engine.sh
 ##############################################################
 
 # install docker images from local files
-echo 'docker images (before docker load of sync/images/*)...'
+echo 'docker images (before docker load of /vagrant/images/*)...'
 docker images
 
-for i in sync/images/*
+for i in /vagrant/images/*
 do
     if [ -f "$i" ]; then
         echo 'loading images found locally...' $i

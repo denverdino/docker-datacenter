@@ -8,7 +8,7 @@ if [ ! -d "images" ]; then
 	mkdir images
 fi
 
-VERSION=ucp-2.0.1_dtr-2.1.3
+VERSION=ucp_images_2.1.0
 if [ ! -f "images/${VERSION}.tar.gz" ]; then
 	echo 'downloading the following to your host machine... '${VERSION}'.tar.gz'
     wget https://packages.docker.com/caas/${VERSION}.tar.gz -O images/${VERSION}.tar.gz
