@@ -1,13 +1,16 @@
 #!/bin/bash
 
+DTR_VERSION=2.2.2
+
 # get ucp certs
 curl -k https://$UCP_URL/ca > ucp-ca.pem
 
 docker run --rm \
-    docker/dtr install \
+    docker/dtr:$DTR_VERSION install \
     --ucp-url $UCP_URL \
     --ucp-ca "$(cat ucp-ca.pem)" \
-    --ucp-username $UCP_USER --ucp-password $UCP_PASSWORD \
+    --ucp-username $UCP_USER \
+    --ucp-password $UCP_PASSWORD \
     --dtr-external-url $DTR_PUBLIC_IP:${DTR_HTTPS_PORT} \
     --replica-http-port ${DTR_HTTP_PORT} \
     --replica-https-port ${DTR_HTTPS_PORT}
@@ -21,8 +24,8 @@ source ${SCRIPT_PATH}/scripts/supporting/dtr-ssl.sh
 
 # configure ucp
 echo "Configuring UCP to use DTR"
-TOKEN=$(curl -k -c jar https://${UCP_URL}/auth/login -d '{"username": "admin", "password": "dolphins"}' -X POST -s | ./jq-linux64 -r ".auth_token")
-curl -k -s -c jar -H "Authorization: Bearer ${TOKEN}" https://${UCP_URL}/api/config/registry -X POST --data "{\"url\": \"https://${DTR_URL}\", \"insecure\":false}"
+#TOKEN=$(curl -k -c jar https://${UCP_URL}/auth/login -d '{"username": "admin", "password": "dolphins"}' -X POST -s | ./jq-linux64 -r ".auth_token")
+#curl -k -s -c jar -H "Authorization: Bearer ${TOKEN}" https://${UCP_URL}/api/config/registry -X POST --data "{\"url\": \"https://${DTR_URL}\", \"insecure\":false}"
 
 # make the ucp cert bundle available on the host
 curl -k -s -H "Authorization: Bearer ${TOKEN}" https://${UCP_URL}/api/clientbundle -X POST > ~/admin_bundle.zip

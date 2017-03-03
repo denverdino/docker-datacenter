@@ -15,11 +15,12 @@ docker run --rm -t --name ucp \
 -v /vagrant/docker_subscription.lic:/docker_subscription.lic \
 -v /etc/hosts:/etc/hosts \
 docker/ucp:2.1.0 install \
---debug \
 --host-address ${DOCKER1_IP} \
 --controller-port ${UCP_HTTPS_PORT} \
 --admin-username ${UCP_USER} \
 --admin-password ${UCP_PASSWORD}
+
+sleep 30
 
 # the secondary ucp hosts need to verify
 # the fingerprint of the primary

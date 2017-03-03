@@ -6,9 +6,9 @@
 # discover the docker ips
 # docker has an issue with trying to join
 # via a hacked /etc/hosts entry
-export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
-export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`
-export DOCKER3_IP=`cat /etc/hosts | grep docker3 | cut -f1`
+export DOCKER1_IP=172.28.128.3
+export DOCKER2_IP=172.28.128.4
+export DOCKER3_IP=172.28.128.5
 
 # ucp
 export UCP_HOST=${DOCKER1_IP}

@@ -52,10 +52,9 @@ Vagrant.configure(2) do |config|
     config.proxy.http     = "http://10.0.2.2:3128/"
     config.proxy.https    = "http://10.0.2.2:3128/"
     config.vm.provision "shell", path: "docker-engine-proxy.sh"
+    # guest proxy
+    config.proxy.no_proxy = "localhost,127.0.0.1,docker1,docker2,docker3"
   end
-
-  # guest proxy
-  config.proxy.no_proxy = "localhost,127.0.0.1,docker1,docker2,docker3"
 
   # misc
   config.vm.box = "centos/7"
@@ -65,22 +64,21 @@ Vagrant.configure(2) do |config|
   #config.vm.box = "bento/centos-7.2"
 
   config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--memory", 1792]
+    v.customize ["modifyvm", :id, "--memory", 2048]
   end
 
   config.vm.define "docker1" do |docker1|
-    #docker1.vm.network "forwarded_port", guest: 443,  host: 4430
-    #docker1.vm.network "forwarded_port", guest: 8443, host: 4431
+    docker1.vm.hostname = "docker1"
     docker1.vm.provision "shell", path: "scripts/docker1.sh"
   end
 
   config.vm.define "docker2" do |docker2|
-    #docker2.vm.network "forwarded_port", guest: 8443, host: 4432
+    docker2.vm.hostname = "docker2"
     docker2.vm.provision "shell", path: "scripts/docker2.sh"
   end
 
   config.vm.define "docker3" do |docker3|
-    #docker3.vm.network "forwarded_port", guest: 8443, host: 4433   
+    docker3.vm.hostname = "docker3"
     docker3.vm.provision "shell", path: "scripts/docker3.sh"
   end
 
